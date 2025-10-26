@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-
 async function findOrCreateOrganization(prisma: PrismaClient, orgName: string) {
   return prisma.organization.upsert({
     where: { name: orgName },

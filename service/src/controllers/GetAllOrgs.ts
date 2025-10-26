@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 
+
 export const getAllOrgs = (prisma: PrismaClient) => async (req: Request, res: Response): Promise<void> => {
     try {
 
@@ -11,10 +12,10 @@ export const getAllOrgs = (prisma: PrismaClient) => async (req: Request, res: Re
             },
         });
 
-        const formatted = orgs.map((org) => ({
+        const formatted = orgs.map((org : any) => ({
             id: org.id,
             name: org.name,
-            years: [...new Set(org.details.map((d) => d.year))],
+            years: [...new Set(org.details.map((d : any) => d.year))],
             logoUrl: org.logoUrl,
             description: org.description,
             totalProjects: org._count.projects,

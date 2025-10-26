@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"
 import { getAllOrgs } from "../controllers/GetAllOrgs";
 import { getOrgById } from "../controllers/GetSpecificOrg";
 import { addOrgs } from "../controllers/AddOrgs";

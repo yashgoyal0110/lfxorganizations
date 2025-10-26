@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client/extension";
+import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 
 export const getOrgById = (prisma: PrismaClient) => async (req: Request, res: Response): Promise<void> => {
