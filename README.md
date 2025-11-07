@@ -11,7 +11,6 @@ A simple dashboard to view and past records of organizations that have participa
 
 1. Fork the repository on GitHub, then clone your fork locally:
 ```bash
-git clone https://github.com/yashgoyal0110/lfxorganizations.git
 cd lfxorganizations
 ```
 
@@ -28,11 +27,11 @@ cd ui
 npm i
 npm run dev
 ```
-Open the URL shown by the frontend dev server (typically http://localhost:3000).
+Open the URL shown by the frontend dev server (typically http://localhost:5173).
 
 
 ## Data and Contributions
-- Data files live in `data/*.json`. To fix inconsistencies or add records, edit the relevant JSON file and submit a PR.
+- Data files live in `service/data/*.json`. To fix inconsistencies or add records, edit the relevant JSON file and submit a PR.
 - UI improvements, bug fixes, accessibility and responsive design changes are welcome.
 
 When raising a PR:
@@ -61,18 +60,8 @@ git push origin feature/your-feature
 - Ensure Node version 22.x is used for the frontend.
 - Run backend first (Terminal 1) and only start the frontend (Terminal 2) after the backend reports `Server running successfully`.
 
-Make your changes and test them locally using the setup steps above
-Commit your changes with clear, descriptive messages:
-
-bash   git commit -m "Fix: Description of what you fixed"
-
-Push to your fork:
-
-bash   git push origin feature/your-feature-name
-
 Open a Pull Request on the main repository with:
 
-- Repo URL used for cloning: https://github.com/yashgoyal0110/lfxorganizationsA clear title describing the change
+- Repo URL used for cloning: https://github.com/yashgoyal0110/lfxorganizations clear title describing the change
 
-Any re
 Thank you for contributing — your improvements make the dashboard more useful for the community.
