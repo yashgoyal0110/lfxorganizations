@@ -1,8 +1,8 @@
 import type { JSX } from "react"
 import { motion } from "framer-motion"
 import type { SidebarProps } from "../types/index"
-import { CheckCircle2, Circle } from "lucide-react"
-import { YEARS } from "../utils/constants"
+import { CheckCircle2, Circle, Star } from "lucide-react"
+import { GITHUB_LINK, YEARS } from "../utils/constants"
 
 export function Sidebar({
   selectedYears,
@@ -15,7 +15,6 @@ export function Sidebar({
         : [...selectedYears, year]
     )
   }
-
   return (
     <aside
       className="
@@ -28,7 +27,7 @@ export function Sidebar({
         transition-all duration-300
       "
     >
-      <div className="p-6 space-y-10 overflow-y-auto">
+      <div className="p-6 space-y-10 overflow-y-auto flex-1">
         {/* YEARS FILTER */}
         <section>
           <h3 className="text-sm font-semibold tracking-wide text-primary mb-3 uppercase">
@@ -65,6 +64,33 @@ export function Sidebar({
             })}
           </div>
         </section>
+      </div>
+
+      <div className="p-6 pt-0 mt-auto">
+        <motion.a
+          href={GITHUB_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="
+            flex items-center justify-center gap-3 px-4 py-3 rounded-xl
+            bg-linear-to-r from-primary/20 to-primary/10
+            border border-primary/30
+            hover:from-primary/30 hover:to-primary/20
+            hover:border-primary/50
+            transition-all duration-300
+            shadow-[0_0_15px_rgba(0,0,0,0.1)]
+            hover:shadow-[0_0_25px_rgba(0,0,0,0.2)]
+            group
+          "
+        >
+          <Star className="h-5 w-5 text-primary group-hover:fill-primary transition-all duration-300" />
+          <span className="text-sm font-semibold text-primary">
+            Give us a Star
+          </span>
+        </motion.a>
       </div>
     </aside>
   )
