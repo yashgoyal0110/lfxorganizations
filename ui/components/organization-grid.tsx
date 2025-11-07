@@ -75,10 +75,11 @@ export function OrganizationGrid({
               to={`/${org.id}/details`}
               className="block group"
               onClick={() => onSelectOrg?.(org)}
+              target="_blank"
             >
               <div
                 className="
-                  transform transition-all duration-300 ease-out
+                  transform transition-all duration-300 ease-out rounded-3xl
                   group-hover:-translate-y-1 group-hover:shadow-[0_12px_25px_-10px_rgba(0,0,0,0.25)]
                   group-hover:scale-[1.02]
                 "

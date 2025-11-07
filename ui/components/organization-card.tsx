@@ -6,21 +6,17 @@ export function OrganizationCard({
   organization,
   onClick,
 }: OrganizationCardProps): JSX.Element {
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>): void => {
-    e.currentTarget.src = "/generic-organization-logo.png"
-  }
 
   return (
     <motion.button
       onClick={onClick}
-      whileHover={{ y: -8, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="group relative flex flex-col h-full w-full rounded-3xl border-2 border-border/60 bg-white dark:bg-slate-900 text-left shadow-lg shadow-black/5 transition-all duration-300 hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 overflow-hidden"
+      className="group relative flex flex-col h-full w-full rounded-3xl border-2 border-border/60 bg-white dark:bg-slate-900 text-left shadow-lg shadow-black/5 transition-all duration-300 hover:border-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 overflow-hidden"
       aria-label={`View details for ${organization.name}`}
     >
       {/* Gradient Background Accent */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-primary/8 via-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        className="absolute inset-0 bg-gradient-to-br from-primary/8 via-primary/3 to-transparent opacity-0 transition-opacity duration-500"
         layoutId={`bg-${organization.id}`}
       />
       
@@ -39,7 +35,6 @@ export function OrganizationCard({
                   "/placeholder.svg?height=80&width=80&query=organization"
                 }
                 alt={`${organization.name} logo`}
-                onError={handleImageError}
                 className="object-contain w-full h-full p-2"
                 loading="lazy"
               />

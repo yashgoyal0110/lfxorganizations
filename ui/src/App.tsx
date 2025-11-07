@@ -23,6 +23,7 @@ function Home() {
       setOrganizations(
         response.data.sort((a: Organization, b: Organization) => a.name.localeCompare(b.name))
       )
+      console.log("Organizations fetched:", response.data)
     } catch (err) {
       console.error("Failed to fetch organizations", err)
     }
@@ -35,8 +36,7 @@ function Home() {
   const filteredOrganizations = useMemo<Organization[]>(() => {
     return organizations.filter((org) => {
       const matchesSearch =
-        org.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        org.description.toLowerCase().includes(searchQuery.toLowerCase())
+        org.name.toLowerCase().includes(searchQuery.toLowerCase())
 
       const matchesYear = selectedYears.length === 0 || org.years.some((year) => selectedYears.includes(year))
 
