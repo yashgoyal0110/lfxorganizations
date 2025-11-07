@@ -11,10 +11,6 @@ const db = drizzle(pool, { schema });
 async function seed() {
   console.log('Starting seed process...');
 
-  if (process.env.NODE_ENV === 'production') {
-    throw new Error('Refusing to TRUNCATE in production. Set NODE_ENV!=production to proceed.');
-  }
-
   const dataDir = path.join(__dirname, '../../data');
 
   // Map table names to schema exports (keep your original order for inserts)

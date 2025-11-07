@@ -8,8 +8,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=mydb
+      - PGPORT=5433
     ports:
-      - "5432:5432"
+      - "5433:5433"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -25,14 +26,14 @@ services:
       db:
         condition: service_healthy
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/mydb
-      - NODE_ENV=production
+      - DATABASE_URL=postgres://postgres:postgres@db:5433/mydb
     volumes:
       - ./service:/app
       - /app/node_modules
     command: >
       sh -c "
-        node -v &&
+        npm ci &&
+        npm run build &&
         npm run db:gen &&
         npm run db:migrate &&
         npm run seed &&
