@@ -23,7 +23,7 @@ function Home() {
       setOrganizations(
         response.data.sort((a: Organization, b: Organization) => a.name.localeCompare(b.name))
       )
-      console.log("Organizations fetched successfully", response.data)
+      console.log("Organizations fetched successfully")
     } catch (err : any) {
       console.error("Failed to fetch organizations", err.message)
     }
