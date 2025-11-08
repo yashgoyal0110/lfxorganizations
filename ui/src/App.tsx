@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { BrowserRouter, Routes, Route} from "react-router-dom"
 import { Header } from "./components/header"
 import { Sidebar } from "./components/sidebar"
@@ -15,7 +15,6 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [selectedYears, setSelectedYears] = useState<number[]>([])
   const [selectedTerms, setSelectedTerms] = useState<(1 | 2 | 3)[]>([])
-  const [selectedOrg, setSelectedOrg] = useState<Organization | null>(null)
 
   useEffect(() => {
     const fetchOrganizations = async () => {
@@ -46,10 +45,6 @@ function Home() {
     })
   }, [searchQuery, selectedYears, selectedTerms, organizations])
 
-  const handleSelectOrg = useCallback((org: Organization): void => {
-    setSelectedOrg(org)
-  }, [])
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header title="LFX Organizations" />
@@ -78,7 +73,7 @@ function Home() {
               </div>
 
               {organizations.length > 0 ? (
-                <OrganizationGrid organizations={filteredOrganizations} onSelectOrg={handleSelectOrg} />
+                <OrganizationGrid organizations={filteredOrganizations} />
               ) : (
                 <Loader size={128} variant="spinner" />
               )}

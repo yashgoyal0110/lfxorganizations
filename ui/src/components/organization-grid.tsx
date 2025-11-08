@@ -6,7 +6,6 @@ import type { OrganizationGridProps } from "../types/index"
 
 export function OrganizationGrid({
   organizations,
-  onSelectOrg,
   isLoading = false,
 }: OrganizationGridProps): JSX.Element {
   // Skeleton Loading State
@@ -74,7 +73,6 @@ export function OrganizationGrid({
             <Link
               to={`/${org.id}/details`}
               className="block group"
-              onClick={() => onSelectOrg?.(org)}
               target="_blank"
             >
               <div

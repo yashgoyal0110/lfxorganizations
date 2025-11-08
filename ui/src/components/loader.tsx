@@ -29,7 +29,7 @@ function useResolvedTheme(theme: Theme) {
 }
 
 // Helper: ring+dot spinner
-function Spinner({ size, compact }: { size: number; compact?: boolean }) {
+function Spinner({ size}: { size: number; compact?: boolean }) {
   const reduce = useReducedMotion();
   const ring = (
     <svg

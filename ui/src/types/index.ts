@@ -21,7 +21,6 @@ export interface OrganizationCardProps {
 
 export interface OrganizationGridProps {
   organizations: Organization[]
-  onSelectOrg: (org: Organization) => void
   isLoading?: boolean
 }
 
