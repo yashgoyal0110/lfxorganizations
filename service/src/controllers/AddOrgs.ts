@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { db } from "../db";
 import { cachedOrgs } from "../utils/cached";
 import { organization, orgDetail, project, skill, projectSkill } from "../db/schema";
-import { eq, and } from "drizzle-orm";
+import { eq, and, ilike } from "drizzle-orm";
 
 async function findOrCreateOrganization(orgName: string) {
   const existing = await db.query.organization.findFirst({
@@ -27,7 +27,6 @@ async function findOrCreateorgDetail(orgId: number, year: number, term: number) 
   });
 
   if (existing) return existing;
-
   const [created] = await db.insert(orgDetail)
     .values({ orgId, year, term })
     .returning();
@@ -41,6 +40,17 @@ async function createProject(
 ) {
   const { project: title, upstreamIssue, lfxUrl } = projectData;
 
+  const existing = await db.query.project.findFirst({
+    where: and(
+      eq(project.orgDetailId, orgDetailId),
+      eq(project.title, title)
+    ),
+  });
+
+  if (existing) {
+    return existing;
+  }
+
   const [newProject] = await db.insert(project)
     .values({
       orgId,
@@ -50,15 +60,14 @@ async function createProject(
       lfxUrl,
     })
     .returning();
-
   return newProject;
 }
 
 async function attachskillToProject(projectId: number, requiredskill: string[]) {
   for (const skillName of requiredskill) {
-    const existingSkill = await db.query.skill.findFirst({
-      where: eq(skill.name, skillName),
-    });
+const existingSkill = await db.query.skill.findFirst({
+  where: ilike(skill.name, skillName),
+});
 
     let skillId: number;
     if (existingSkill) {
@@ -87,7 +96,7 @@ export const addOrgs = async (req: Request, res: Response) => {
   try {
     await db.transaction(async (tx) => {
       for (const p of project) {
-        const { org, year: rawYear, term: rawTerm, requiredskill = [] } = p;
+        const { org, year: rawYear, term: rawTerm, requiredSkills = [] } = p;
         const year = parseInt(String(rawYear), 10);
         const term = parseInt(String(rawTerm), 10);
 
@@ -95,8 +104,8 @@ export const addOrgs = async (req: Request, res: Response) => {
         const orgDetail = await findOrCreateorgDetail(organization.id, year, term);
         const newProject = await createProject(organization.id, orgDetail.id, p);
 
-        if (requiredskill.length > 0) {
-          await attachskillToProject(newProject.id, requiredskill);
+        if (requiredSkills.length > 0) {
+          await attachskillToProject(newProject.id, requiredSkills);
         }
       }
     });

@@ -36,10 +36,10 @@ export const orgDetail = pgTable("OrgDetail", {
 	uniqueIndex("OrgDetail_orgId_year_term_key").using("btree", table.orgId.asc().nullsLast().op("int4_ops"), table.year.asc().nullsLast().op("int4_ops"), table.term.asc().nullsLast().op("int4_ops")),
 	index("OrgDetail_year_term_idx").using("btree", table.year.asc().nullsLast().op("int4_ops"), table.term.asc().nullsLast().op("int4_ops")),
 	foreignKey({
-			columns: [table.orgId],
-			foreignColumns: [organization.id],
-			name: "OrgDetail_orgId_fkey"
-		}).onUpdate("cascade").onDelete("cascade"),
+		columns: [table.orgId],
+		foreignColumns: [organization.id],
+		name: "OrgDetail_orgId_fkey"
+	}).onUpdate("cascade").onDelete("cascade"),
 ]);
 
 export const project = pgTable("Project", {
@@ -55,15 +55,15 @@ export const project = pgTable("Project", {
 	index("Project_orgDetailId_idx").using("btree", table.orgDetailId.asc().nullsLast().op("int4_ops")),
 	index("Project_orgId_idx").using("btree", table.orgId.asc().nullsLast().op("int4_ops")),
 	foreignKey({
-			columns: [table.orgId],
-			foreignColumns: [organization.id],
-			name: "Project_orgId_fkey"
-		}).onUpdate("cascade").onDelete("cascade"),
+		columns: [table.orgId],
+		foreignColumns: [organization.id],
+		name: "Project_orgId_fkey"
+	}).onUpdate("cascade").onDelete("cascade"),
 	foreignKey({
-			columns: [table.orgDetailId],
-			foreignColumns: [orgDetail.id],
-			name: "Project_orgDetailId_fkey"
-		}).onUpdate("cascade").onDelete("cascade"),
+		columns: [table.orgDetailId],
+		foreignColumns: [orgDetail.id],
+		name: "Project_orgDetailId_fkey"
+	}).onUpdate("cascade").onDelete("cascade"),
 ]);
 
 export const skill = pgTable("Skill", {
@@ -82,14 +82,14 @@ export const projectSkill = pgTable("ProjectSkill", {
 	updatedAt: timestamp({ precision: 3, mode: 'string' }).notNull(),
 }, (table) => [
 	foreignKey({
-			columns: [table.projectId],
-			foreignColumns: [project.id],
-			name: "ProjectSkill_projectId_fkey"
-		}).onUpdate("cascade").onDelete("cascade"),
+		columns: [table.projectId],
+		foreignColumns: [project.id],
+		name: "ProjectSkill_projectId_fkey"
+	}).onUpdate("cascade").onDelete("cascade"),
 	foreignKey({
-			columns: [table.skillId],
-			foreignColumns: [skill.id],
-			name: "ProjectSkill_skillId_fkey"
-		}).onUpdate("cascade").onDelete("cascade"),
-	primaryKey({ columns: [table.projectId, table.skillId], name: "ProjectSkill_pkey"}),
+		columns: [table.skillId],
+		foreignColumns: [skill.id],
+		name: "ProjectSkill_skillId_fkey"
+	}).onUpdate("cascade").onDelete("cascade"),
+	primaryKey({ columns: [table.projectId, table.skillId], name: "ProjectSkill_pkey" }),
 ]);
