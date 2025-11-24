@@ -204,6 +204,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:orgId/details" element={<OrganizationDetailsPage />} />
+            <Route path="/auth-success" element={<AuthSuccess />} />
       </Routes>
     </BrowserRouter>
   )
