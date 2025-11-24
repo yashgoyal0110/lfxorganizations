@@ -11,10 +11,10 @@ export const githubLogin = async (
     res: Response
 ): Promise<void> => {
     const code = req.query.code as string;
-    console.log("Received code:", code);
     if (!code) res.status(400).json({ error: "Missing code parameter" });
 
     try {
+        let loginUser;
         // Step 1: Exchange code for access token
         const tokenResponse = await axios.post(
             `https://github.com/login/oauth/access_token`,
@@ -36,17 +36,15 @@ export const githubLogin = async (
             userResponse.data.email,
             userResponse.data.login
         );
-        console.log("User existence check:", isExisitng);
         if (!isExisitng) {
-            console.log("User does not exist, creating new user.");
-            await addUser(
+             loginUser = await addUser(
                 userResponse.data.name,
                 userResponse.data.login,
                 userResponse.data.email
             );
         }
 
-        const token = generateJWT(userResponse.data);
+        const token = generateJWT({userId: isExisitng ? isExisitng.id : loginUser?.id, ...userResponse.data});
         res.cookie("auth_token", token, {
             httpOnly: true,
             secure: false,
@@ -69,8 +67,6 @@ export const logOut = (req: Request, res: Response): void => {
 export const getMe = async (req: Request, res: Response): Promise<void> => {
     try {
         const token = req.cookies.auth_token;
-        console.log("Auth token from cookies:");
-
         if (!token) {
             res.status(401).json({ user: null });
         }

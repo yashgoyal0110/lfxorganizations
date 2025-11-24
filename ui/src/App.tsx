@@ -10,16 +10,20 @@ import OrganizationDetailsPage from './components/OrganizationDetailsPage';
 import Loader from "./components/loader"
 import { SERVICE_API_BASE_URL } from "../env"
 import { data } from "../data"
+import FlashCardPopup from "./components/FlashCardPopup"
 
 function Home() {
   const [organizations, setOrganizations] = useState<Organization[]>([])
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [selectedYears, setSelectedYears] = useState<number[]>([])
   const [selectedTerms, setSelectedTerms] = useState<(1 | 2 | 3)[]>([])
+  const [todayFlashcard, setTodayFlashcard] = useState<any>(null);
 
   useEffect(() => {
     const fetchOrganizations = async () => {
     try {
+      const flashCard = await axios.get(`${SERVICE_API_BASE_URL}/flashcards/today`, { withCredentials: true });
+      setTodayFlashcard(flashCard.data);
       // const response = await axios.get(`${SERVICE_API_BASE_URL}/orgs`)
       setOrganizations(
       data
@@ -82,7 +86,9 @@ function Home() {
           </div>
         </main>
       </div>
-
+      {
+        todayFlashcard && <FlashCardPopup flashcard={todayFlashcard} />
+      }
     </div>
   )
 }

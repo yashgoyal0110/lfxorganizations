@@ -34,7 +34,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       if (res.status === 200) {
-        console.log("Fetched user data:", res.data.user.payload);
         setUser(res.data.user.payload);
       } else {
         setUser(null);

@@ -2,6 +2,8 @@ import express from "express";
 import cors from 'cors';
 import { router as orgsRouter } from "./router/orgs";
 import { router as githubLoginRouter } from "./router/githubLogin";
+import { router as flashcardRouter } from "./router/flashcard";
+import { router as flashcardViewsRouter } from "./router/flashcardViews";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 
@@ -9,7 +11,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 const corsOptions = {
@@ -26,6 +27,8 @@ app.use((req, res, next) => {
 });
 app.use("/api/v1", orgsRouter);
 app.use("/api/v1", githubLoginRouter);
+app.use("/api/v1/flashcards", flashcardRouter);
+app.use("/api/v1/flashcard-views", flashcardViewsRouter);
 app.get("/", async (req, res) => {
   res.json({ message: "Server is running" });
 });

@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, text, integer, timestamp, unique, index, primaryKey } from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar, text, integer, timestamp, unique, index, primaryKey, date } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 export const organization = pgTable("Organization", {
@@ -64,6 +64,29 @@ export const users = pgTable("users", {
   lastLoggedAt: timestamp("last_logged_at"),
 });
 
+
+export const flashcards = pgTable("flashcards", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 200 }).notNull(),
+  frontText: text("front_text").notNull().unique(),
+  backText: text("back_text").notNull().unique(),
+  referenceLink: varchar("reference_link", { length: 500 }),
+  availableOn: date("available_on").notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const flashCardViews = pgTable("flashcard_views", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  flashcardId: integer("flashcard_id")
+    .notNull()
+    .references(() => flashcards.id, { onDelete: "cascade" }),
+  viewedAt: timestamp("viewed_at").defaultNow(),
+});
+
 // Relations
 export const orgRelations = relations(organization, ({ many }) => ({
   details: many(orgDetail),
@@ -85,3 +108,9 @@ export const projectSkillRelations = relations(projectSkill, ({ one }) => ({
   project: one(project, { fields: [projectSkill.projectId], references: [project.id] }),
   skill: one(skill, { fields: [projectSkill.skillId], references: [skill.id] }),
 }));
+
+export const flashCardViewsRelations = relations(flashCardViews, ({ one }) => ({
+  user: one(users, { fields: [flashCardViews.userId], references: [users.id] }),
+  flashcard: one(flashcards, { fields: [flashCardViews.flashcardId], references: [flashcards.id] }),
+}));
+

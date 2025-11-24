@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "../context/UserContext";
 
 const LoginWithGithub = () => {
-  const { user, logout } = useUser(); // assuming you have a logout function in context
+  const { user, logout } = useUser(); 
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 
   const [open, setOpen] = useState(false);
