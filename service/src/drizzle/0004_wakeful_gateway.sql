@@ -1,0 +1,1 @@
+ALTER TABLE "flashcards" ADD COLUMN "topic_logo_url" varchar(500);

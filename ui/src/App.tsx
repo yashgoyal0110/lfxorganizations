@@ -10,6 +10,7 @@ import OrganizationDetailsPage from './components/OrganizationDetailsPage';
 import Loader from "./components/Loader"
 import { SERVICE_API_BASE_URL } from "../env"
 import FlashCardPopup from "./components/FlashCardPopup"
+import { useUser } from "./context/UserContext"
 
 function Home() {
   const [organizations, setOrganizations] = useState<Organization[]>([])
@@ -17,6 +18,7 @@ function Home() {
   const [selectedYears, setSelectedYears] = useState<number[]>([])
   const [selectedTerms, setSelectedTerms] = useState<(1 | 2 | 3)[]>([])
   const [todayFlashcard, setTodayFlashcard] = useState<any>(null);
+  const {loading} = useUser();
 
  useEffect(() => {
   const fetchData = async () => {
@@ -86,7 +88,7 @@ function Home() {
                 {filteredOrganizations.length !== 1 ? "s" : ""} found
               </div>
 
-              {organizations.length > 0 ? (
+              {loading ? <Loader size={128} variant="spinner" /> : organizations.length > 0 ? (
                 <OrganizationGrid organizations={filteredOrganizations} />
               ) : (
                 <Loader size={128} variant="spinner" />

@@ -6,6 +6,7 @@ interface User {
   name: string;
   email: string;
   avatar_url?: string;
+  lastLoggedAt?: string;
 }
 
 interface UserContextType {
@@ -45,11 +46,21 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = () => {
+    try{
+      setLoading(true);
+    
     axios.post(`${import.meta.env.VITE_SERVICE_API_BASE_URL}/logout`, null, {
       withCredentials: true,
     });
     setUser(null);
-  };
+  }
+  catch(err){
+    console.error("Logout failed:", err);
+  }
+  finally {
+    setLoading(false);
+  }
+}
 
   return (
     <UserContext.Provider value={{ user, loading, logout, refreshUser }}>

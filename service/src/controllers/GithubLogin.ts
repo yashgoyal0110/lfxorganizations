@@ -11,6 +11,9 @@ import {
   FRONTEND_URL,
   JWT_SECRET,
 } from "../../env";
+import { users } from "../db/schema";
+import { eq } from "drizzle-orm/sql/expressions/conditions";
+import { db } from "../db";
 
 export const githubLogin = async (
   req: Request,
@@ -42,6 +45,10 @@ export const githubLogin = async (
       userResponse.data.email,
       userResponse.data.login
     );
+    if (isExisitng){
+        isExisitng.lastLoggedAt = new Date();
+    await db.update(users).set({ lastLoggedAt: isExisitng.lastLoggedAt }).where(eq(users.id, isExisitng.id));
+    }
     if (!isExisitng) {
       loginUser = await addUser(
         userResponse.data.name,
@@ -51,7 +58,7 @@ export const githubLogin = async (
     }
 
     const token = generateJWT({
-      userId: isExisitng ? isExisitng.id : loginUser?.id,
+      userId: isExisitng ? isExisitng.id : loginUser?.id, lastLoggedAt: isExisitng ? isExisitng.lastLoggedAt : loginUser?.lastLoggedAt,
       ...userResponse.data,
     });
     res.cookie("auth_token", token, {

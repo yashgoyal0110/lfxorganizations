@@ -70,6 +70,7 @@ export const flashcards = pgTable("flashcards", {
   title: varchar("title", { length: 200 }).notNull(),
   frontText: text("front_text").notNull().unique(),
   backText: text("back_text").notNull().unique(),
+  topicLogoUrl: varchar("topic_logo_url", { length: 500 }),
   referenceLink: varchar("reference_link", { length: 500 }),
   availableOn: date("available_on").notNull().unique(),
   createdAt: timestamp("created_at").defaultNow(),
