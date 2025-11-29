@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import axios from "axios";
-import { X, ExternalLink, RotateCw, Sparkles, CheckCircle2 } from "lucide-react";
+import { X, ExternalLink, RotateCw, Brain, CheckCircle2 } from "lucide-react";
 import { useUser } from "../context/UserContext";
 import { SERVICE_API_BASE_URL } from "../../env";
-// import Confetti from "./Confetti";
 
 interface Flashcard {
   id: number;
@@ -21,7 +20,6 @@ export default function FlashCardPopup({ flashcard }: { flashcard: Flashcard }) 
   const [show, setShow] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [viewed, setViewed] = useState(false);
-  // const [showConfetti, setShowConfetti] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const mouseX = useMotionValue(0);
@@ -68,8 +66,6 @@ export default function FlashCardPopup({ flashcard }: { flashcard: Flashcard }) 
     setFlipped((prev) => !prev);
     if (!flipped) {
       markViewed();
-      // setShowConfetti(true);
-      // setTimeout(() => setShowConfetti(false), 3000);
     }
   };
 
@@ -98,7 +94,6 @@ export default function FlashCardPopup({ flashcard }: { flashcard: Flashcard }) 
     <AnimatePresence>
       {show && (
         <>
-          {/* <Confetti active={showConfetti} /> */}
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-black/80 via-black/70 to-black/80 backdrop-blur-xl p-4"
             initial={{ opacity: 0 }}
@@ -181,8 +176,6 @@ export default function FlashCardPopup({ flashcard }: { flashcard: Flashcard }) 
                         {flashcard.topicLogoUrl && (
                           <motion.div 
                             className="w-14 h-14 bg-white/95 backdrop-blur-md rounded-2xl p-3 shadow-xl flex items-center justify-center flex-shrink-0"
-                            whileHover={{ rotate: 360, scale: 1.1 }}
-                            transition={{ duration: 0.6 }}
                           >
                             <img
                               src={flashcard.topicLogoUrl}
@@ -193,7 +186,7 @@ export default function FlashCardPopup({ flashcard }: { flashcard: Flashcard }) 
                         )}
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <Sparkles className="w-4 h-4 text-white animate-pulse" />
+                            <Brain className="w-4 h-4 text-white animate-pulse" />
                             <span className="text-white font-bold text-base tracking-wide">
                               Daily Facts
                             </span>
@@ -234,7 +227,7 @@ export default function FlashCardPopup({ flashcard }: { flashcard: Flashcard }) 
                     <div className="px-7 pb-7 flex justify-center">
                       <motion.div 
                         className="inline-flex flex-col items-center gap-2 text-white rounded-2xl px-6 py-3.5 shadow-lg hover:shadow-xl transition-all"
-                        whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.5)" }}
+                        whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         style={{ backgroundColor: '#0094ff' }}
                       >
@@ -321,13 +314,11 @@ export default function FlashCardPopup({ flashcard }: { flashcard: Flashcard }) 
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 font-bold text-sm group transition-colors"
-                          whileHover={{ x: 5 }}
+                          className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 font-bold text-sm group transition-colors"  
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.8 }}
                         >
-                          <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                          <ExternalLink className="w-4 h-4" />
                           <span className="border-b-2 border-teal-300 group-hover:border-teal-600 transition-colors">
                             Learn more
                           </span>
@@ -339,11 +330,11 @@ export default function FlashCardPopup({ flashcard }: { flashcard: Flashcard }) 
                     <div className="px-7 pb-7 flex justify-center">
                       <motion.div 
                         className="inline-flex flex-col items-center gap-2 bg-teal-600 text-white rounded-2xl px-6 py-3.5 shadow-lg hover:shadow-xl transition-all"
-                        whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(20, 184, 166, 0.5)" }}
+                        whileHover={{ scale: 1.05}}
                         whileTap={{ scale: 0.95 }}
                       >
                         <div className="flex items-center gap-3">
-                          <RotateCw className="w-5 h-5" />
+                          <RotateCw className="w-5 h-5 animate-spin" style={{ animationDuration: "3s" }} />
                           <span className="font-bold text-base">
                             Back to Question
                           </span>
