@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "../context/UserContext";
 
 const LoginWithGithub = () => {
-  const { user, logout, } = useUser();
+  const { user, logout } = useUser();
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
   const [open, setOpen] = useState(false);
 
@@ -86,9 +86,11 @@ const LoginWithGithub = () => {
                   <p className="text-xs font-semibold text-gray-800 truncate">
                     {user.name || user.login}
                   </p>
-                  <p className="text-xs text-gray-500 truncate">
-                    {user.email || "No email provided"}
-                  </p>
+                  {user.email && (
+                    <p className="text-xs text-gray-500 truncate">
+                      {user.email}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

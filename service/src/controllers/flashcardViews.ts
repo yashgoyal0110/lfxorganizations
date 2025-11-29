@@ -7,6 +7,9 @@ export const markFlashcardViewed = async (req: Request, res: Response) => {
     const user = req.user;
     const { flashcardId } = req.body;
 
+    if (!user)
+      return res.status(401).json({ message: "Unauthorized" });
+
     if (!flashcardId)
       return res.status(400).json({ message: "flashcardId is required" });
 
