@@ -1,0 +1,1 @@
+ALTER TABLE "flashcard_views" ALTER COLUMN "viewed_at" SET DATA TYPE timestamp with time zone;

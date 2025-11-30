@@ -1,7 +1,7 @@
 import type { JSX } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "react-router-dom"
-import { OrganizationCard } from "./organization-card"
+import { OrganizationCard } from "./OrganizationCard"
 import type { OrganizationGridProps } from "../types/index"
 
 export function OrganizationGrid({

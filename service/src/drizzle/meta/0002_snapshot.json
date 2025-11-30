@@ -1,6 +1,6 @@
 {
-  "id": "b2c6bf6d-95a7-4c7e-b916-2c70af06eb39",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "c2188282-0a23-4ace-911f-288cd029107f",
+  "prevId": "078e31a2-488f-4d6f-916b-1fda5e0b8a9f",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -28,10 +28,9 @@
         },
         "viewed_at": {
           "name": "viewed_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
+          "notNull": false
         }
       },
       "indexes": {},

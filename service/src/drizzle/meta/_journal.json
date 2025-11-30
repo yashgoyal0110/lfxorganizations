@@ -5,8 +5,22 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1762517130994,
-      "tag": "0000_wandering_mikhail_rasputin",
+      "when": 1764487337523,
+      "tag": "0000_swift_iron_fist",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1764487499280,
+      "tag": "0001_cuddly_moon_knight",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1764487582384,
+      "tag": "0002_mixed_eternals",
       "breakpoints": true
     }
   ]

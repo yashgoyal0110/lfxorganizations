@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { db } from "../db";
-import { organization, orgDetail, project, projectSkill, skill } from "../db/schema";
+import { organization, orgDetail} from "../db/schema";
 import { eq, desc } from "drizzle-orm";
 
 export const getOrgById = async (req: Request, res: Response): Promise<void> => {

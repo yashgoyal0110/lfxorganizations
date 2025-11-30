@@ -21,13 +21,13 @@ export const getAllOrgs = async (req: Request, res: Response): Promise<void> => 
         totalProjects: org.projects.length,
       }));
 
+      cachedOrgs.length = 0; // Clear existing cache
       cachedOrgs.push(...formatted);
       res.status(200).json(cachedOrgs);
     } catch (err) {
       console.error("Error fetching orgs:", err);
       res.status(500).json({ error: "Internal Server Error" });
     }
-  } else {
+  } 
     res.status(200).json(cachedOrgs);
-  }
 };
