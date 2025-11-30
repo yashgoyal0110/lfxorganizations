@@ -85,7 +85,7 @@ export const flashCardViews = pgTable("flashcard_views", {
   flashcardId: integer("flashcard_id")
     .notNull()
     .references(() => flashcards.id, { onDelete: "cascade" }),
-  viewedAt: timestamp("viewed_at").defaultNow(),
+  viewedAt: timestamp("viewed_at", { withTimezone: true })
 });
 
 // Relations

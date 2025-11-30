@@ -24,6 +24,12 @@ export const bulkInsertFlashcards = async (req: Request, res: Response) => {
 };
 
 export const getTodaysFlashcard = async (req: Request, res: Response) => {
+
+  if (!req.user?.userId) {
+  throw new Error("Unauthorized");
+}
+
+const userId = req.user.userId;
   try {
     const now = new Date();
 
@@ -39,10 +45,11 @@ export const getTodaysFlashcard = async (req: Request, res: Response) => {
       now.getDate() + 1
     );
 
+
     const isAlreadyViewed = await db.query.flashCardViews.findFirst({
       where: (fv, { and, eq, gte, lt }) =>
         and(
-          eq(fv.userId, req.user.userId),
+          eq(fv.userId, userId),
           gte(fv.viewedAt, startOfToday),
           lt(fv.viewedAt, startOfTomorrow)
         ),
@@ -61,7 +68,6 @@ export const getTodaysFlashcard = async (req: Request, res: Response) => {
       // Return cached flashcard
       res.json(cachedTodaysFlashcard[0]);
     } else {
-      // Fetch today's flashcard from DB
       console.log("Fetching flashcard from DB");
       const card = await db.query.flashcards.findFirst({
         where: (fc, { eq }) => eq(fc.availableOn, todayDate),

@@ -5,7 +5,7 @@ import { router as githubLoginRouter } from "./router/githubLogin";
 import { router as flashcardRouter } from "./router/flashcard";
 import { router as flashcardViewsRouter } from "./router/flashcardViews";
 import cookieParser from "cookie-parser";
-import { FRONTEND_URL, PORT } from '../env';
+import { FRONTEND_URL, PORT } from './env';
 
 const app = express();
 app.use(express.json());

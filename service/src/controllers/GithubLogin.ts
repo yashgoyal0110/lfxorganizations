@@ -10,7 +10,7 @@ import {
   ENVIRONMENT,
   FRONTEND_URL,
   JWT_SECRET,
-} from "../../env";
+} from "../env";
 import { users } from "../db/schema";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
 import { db } from "../db";
@@ -23,7 +23,7 @@ export const githubLogin = async (
   if (!code) res.status(400).json({ error: "Missing code parameter" });
 
   try {
-    let loginUser;
+    let loginUser : any = null;
     // Step 1: Exchange code for access token
     const tokenResponse = await axios.post(
       `https://github.com/login/oauth/access_token`,

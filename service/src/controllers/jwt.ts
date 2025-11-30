@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
-import { user } from '../types/users';
-import { JWT_SECRET, JWT_EXPIRY } from "../../env";
+import { JWT_SECRET, JWT_EXPIRY } from "../env";
 
-export const generateJWT = (user: user): string => {
+export const generateJWT = (user: any): string => {
     try {
         console.log("Generating JWT for user:", user);
         return jwt.sign(

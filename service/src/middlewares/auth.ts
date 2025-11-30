@@ -1,14 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../../env";
+import { JWT_SECRET } from "../env";
 declare global {
   namespace Express {
     interface Request {
       user?: {
-        id: number;
+        id: Number;
         username?: string;
         email?: string;
         avatarUrl?: string;
+        userId: number;
       };
     }
   }
@@ -31,9 +32,9 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     }
 
     // Verify JWT
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded : any = jwt.verify(token, JWT_SECRET);
 
-    req.user = decoded as any;
+    req.user = decoded;
 
     return next();
   } catch (err) {

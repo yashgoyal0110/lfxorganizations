@@ -4,8 +4,9 @@ import { flashCardViews } from "../db/schema";
 
 export const markFlashcardViewed = async (req: Request, res: Response) => {
   try {
-    const user = req.user;
+    const user : any = req.user;
     const { flashcardId } = req.body;
+    console.log("User in markFlashcardViewed:", user);
 
     if (!user)
       return res.status(401).json({ message: "Unauthorized" });
