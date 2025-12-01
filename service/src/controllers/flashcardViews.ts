@@ -24,6 +24,7 @@ export const markFlashcardViewed = async (req: Request, res: Response) => {
     await db.insert(flashCardViews).values({
       userId: user.userId,
       flashcardId,
+      viewedAt: new Date(),
     });
 
     res.json({ message: "Marked as viewed" });

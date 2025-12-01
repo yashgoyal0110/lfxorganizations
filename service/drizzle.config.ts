@@ -1,6 +1,6 @@
 import { defineConfig } from "drizzle-kit";
 import dotenv from "dotenv";
-import { DATABASE_URL } from "./env";
+import { DATABASE_URL } from "./src/env";
 
 dotenv.config();
 
