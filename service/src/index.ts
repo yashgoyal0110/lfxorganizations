@@ -1,3 +1,4 @@
+import '../tracing'
 import express from "express";
 import cors from 'cors';
 import { router as orgsRouter } from "./router/orgs";

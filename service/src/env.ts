@@ -16,3 +16,6 @@ export const JWT_EXPIRY = Number(process.env.JWT_EXPIRY)
 export const COOKIE_EXPIRY = Number(process.env.COOKIE_EXPIRY);
 
 export const ENVIRONMENT = process.env.ENVIRONMENT as string
+
+export const SIGNOZ_REGION = process.env.SIGNOZ_REGION as string;
+export const SIGNOZ_INGESTION_KEY = process.env.SIGNOZ_INGESTION_KEY as string;
